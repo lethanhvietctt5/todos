@@ -53,64 +53,109 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 15),
-                      child: SvgPicture.asset(
-                        "asset/svg/ic_today.svg",
-                        width: 30,
-                        color: Colors.green[800],
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/all');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 15),
+                        child: SvgPicture.asset(
+                          "asset/svg/ic_all.svg",
+                          width: 30,
+                          color: Colors.red[800],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Today",
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "2",
-                            style: TextStyle(fontSize: 15, color: Colors.grey),
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "All",
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "2",
+                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 15),
-                      child: SvgPicture.asset(
-                        "asset/svg/ic_upcomming.svg",
-                        width: 30,
-                        color: Colors.purple[800],
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/today');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 15),
+                        child: SvgPicture.asset(
+                          "asset/svg/ic_today.svg",
+                          width: 30,
+                          color: Colors.green[800],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Upcomming",
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            "2",
-                            style: TextStyle(fontSize: 15, color: Colors.grey),
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "Today",
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "2",
+                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/upcomming');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 15),
+                        child: SvgPicture.asset(
+                          "asset/svg/ic_upcomming.svg",
+                          width: 30,
+                          color: Colors.purple[800],
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Text(
+                              "Upcomming",
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "2",
+                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
