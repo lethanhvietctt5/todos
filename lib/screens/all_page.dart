@@ -77,7 +77,9 @@ class AllPage extends StatelessWidget {
                     ),
                     leading: Checkbox(
                       value: false,
-                      onChanged: (newValue) {},
+                      onChanged: (newValue) {
+                        todos.removeTodo(todos.listTodos[index].id);
+                      },
                     ),
                   ),
                 );

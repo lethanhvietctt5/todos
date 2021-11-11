@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:todos/data_provider/todo_model.dart';
+import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/helpers/convert_datetime.dart';
 
 class UpcommingPage extends StatelessWidget {
@@ -42,16 +45,17 @@ class UpcommingPage extends StatelessWidget {
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      body: SingleChildScrollView(
-        child: Container(
+      body: SingleChildScrollView(child: Consumer<TodosModel>(builder: (context, todos, child) {
+        final upcommingTodos = todos.upcomming as List<TodoModel>;
+        return Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: ListView.builder(
-            itemCount: 10,
+            itemCount: upcommingTodos.length,
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
                   title: Text(
-                    'Task $index',
+                    upcommingTodos[index].title,
                     style: const TextStyle(fontSize: 15),
                   ),
                   subtitle: Container(
@@ -66,7 +70,7 @@ class UpcommingPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateTimeHelper(DateTime.now()).convertTimeToString(),
+                          DateTimeHelper(upcommingTodos[index].dueDate).convertDateTimeToString(),
                           style: const TextStyle(color: Colors.grey, fontSize: 12),
                         ),
                       ],
@@ -82,8 +86,8 @@ class UpcommingPage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
           ),
-        ),
-      ),
+        );
+      })),
     );
   }
 }

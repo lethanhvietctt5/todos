@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/widgets/create_todo.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final todosModel = Provider.of<TodosModel>(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -95,14 +98,14 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               "All",
                               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "2",
-                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                              todosModel.listTodos.length.toString(),
+                              style: const TextStyle(fontSize: 15, color: Colors.grey),
                             )
                           ],
                         ),
@@ -130,14 +133,14 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               "Today",
                               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "2",
-                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                              todosModel.today.length.toString(),
+                              style: const TextStyle(fontSize: 15, color: Colors.grey),
                             )
                           ],
                         ),
@@ -165,14 +168,14 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               "Upcomming",
                               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "2",
-                              style: TextStyle(fontSize: 15, color: Colors.grey),
+                              todosModel.upcomming.length.toString(),
+                              style: const TextStyle(fontSize: 15, color: Colors.grey),
                             )
                           ],
                         ),
