@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:todos/data_provider/todo_model.dart';
+import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/helpers/convert_datetime.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class CreateToDo extends StatefulWidget {
   const CreateToDo({Key? key}) : super(key: key);
@@ -34,6 +40,7 @@ class _CreateToDoState extends State<CreateToDo> {
 
   @override
   Widget build(BuildContext context) {
+    final todosModel = Provider.of<TodosModel>(context, listen: false);
     return Column(
       children: [
         TextField(
@@ -86,10 +93,23 @@ class _CreateToDoState extends State<CreateToDo> {
                   ),
                 ),
               ),
-              SvgPicture.asset(
-                "asset/svg/ic_add.svg",
-                color: Colors.deepOrange,
-                width: 30,
+              InkWell(
+                onTap: () {
+                  if (_title != null && _dueDate != null && _title != '') {
+                    TodoModel obj = TodoModel(
+                      uuid.v4(),
+                      _title as String,
+                      _dueDate as DateTime,
+                    );
+                    todosModel.addTodo(obj);
+                    Navigator.pop(context);
+                  }
+                },
+                child: SvgPicture.asset(
+                  "asset/svg/ic_add.svg",
+                  color: Colors.deepOrange,
+                  width: 30,
+                ),
               ),
             ],
           ),
