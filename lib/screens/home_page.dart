@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todos/widgets/create_todo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +16,29 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              builder: (BuildContext builder) {
+                return Padding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.only(top: 15),
+                    height: 150,
+                    child: const CreateToDo(),
+                  ),
+                );
+              },
+              isScrollControlled: true,
+            );
+          },
           icon: const Icon(Icons.add),
         ),
         actions: [
