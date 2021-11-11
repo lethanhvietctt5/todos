@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
 import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/helpers/convert_datetime.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
@@ -25,8 +27,8 @@ class _CreateToDoState extends State<CreateToDo> {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(), // Refer step 1
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2022),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2100),
     );
     if (picked != null) {
       TimeOfDay? time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -68,10 +70,10 @@ class _CreateToDoState extends State<CreateToDo> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                margin: const EdgeInsets.only(right: 15),
+                margin: const EdgeInsets.only(left: 15),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                    primary: Colors.orange[50],
                     elevation: 0,
                   ),
                   onPressed: () {
@@ -102,7 +104,21 @@ class _CreateToDoState extends State<CreateToDo> {
                       _dueDate as DateTime,
                     );
                     todosModel.addTodo(obj);
+                    showTopSnackBar(
+                      context,
+                      const CustomSnackBar.success(
+                        message: "Congratulation! Create a todo successful.",
+                        backgroundColor: Colors.deepOrange,
+                      ),
+                    );
                     Navigator.pop(context);
+                  } else {
+                    showTopSnackBar(
+                        context,
+                        const CustomSnackBar.error(
+                          message: "Ohhh...! Please fill all field",
+                          backgroundColor: Colors.orange,
+                        ));
                   }
                 },
                 child: SvgPicture.asset(
