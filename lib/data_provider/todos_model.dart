@@ -32,6 +32,16 @@ class TodosModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void doneTodo(String id) {
+    _listTodos.forEach((todo) {
+      if (todo.id == id) {
+        todo.isDone = true;
+      }
+    });
+    sortList();
+    notifyListeners();
+  }
+
   void loadTodos() async {
     final prefs = await SharedPreferences.getInstance();
     final encodedJSON = prefs.getString('todos');

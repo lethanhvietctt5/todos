@@ -131,7 +131,7 @@ class _TodayPageState extends State<TodayPage> {
                       ),
                     ),
                     leading: Checkbox(
-                      value: false,
+                      value: todayTodos[index].isDone,
                       onChanged: (newValue) {
                         todos.removeTodo(todayTodos[index].id);
                       },

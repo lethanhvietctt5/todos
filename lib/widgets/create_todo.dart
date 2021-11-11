@@ -98,11 +98,7 @@ class _CreateToDoState extends State<CreateToDo> {
               InkWell(
                 onTap: () {
                   if (_title != null && _dueDate != null && _title != '') {
-                    TodoModel obj = TodoModel(
-                      uuid.v4(),
-                      _title as String,
-                      _dueDate as DateTime,
-                    );
+                    TodoModel obj = TodoModel(uuid.v4(), _title as String, _dueDate as DateTime, false);
                     todosModel.addTodo(obj);
                     showTopSnackBar(
                       context,

@@ -126,8 +126,9 @@ class AllPage extends StatelessWidget {
                       ),
                     ),
                     leading: Checkbox(
-                      value: false,
+                      value: todos.listTodos[index].isDone,
                       onChanged: (newValue) {
+                        todos.doneTodo(todos.listTodos[index].id);
                         todos.removeTodo(todos.listTodos[index].id);
                       },
                     ),

@@ -125,7 +125,7 @@ class UpcommingPage extends StatelessWidget {
                     ),
                   ),
                   leading: Checkbox(
-                    value: false,
+                    value: upcommingTodos[index].isDone,
                     onChanged: (newValue) {
                       todos.removeTodo(upcommingTodos[index].id);
                     },
