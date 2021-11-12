@@ -31,9 +31,13 @@ class TodosModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeTodo(int id) {
+  void removeTodo(int id) async {
     _listTodos.removeWhere((todo) => todo.id == id);
+    notificationService.cancelNotification(id);
     sortList();
+    final prefs = await SharedPreferences.getInstance();
+    var str = json.encode(_listTodos);
+    prefs.setString("todos", str);
     notifyListeners();
   }
 
