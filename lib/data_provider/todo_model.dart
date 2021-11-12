@@ -1,12 +1,12 @@
 class TodoModel {
-  final String _id;
+  final int _id;
   String _title;
   DateTime _dueDate;
   bool _isDone;
 
   TodoModel(this._id, this._title, this._dueDate, this._isDone);
 
-  String get id => _id;
+  int get id => _id;
 
   String get title => _title;
   set id(newTitle) {

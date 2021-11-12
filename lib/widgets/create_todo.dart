@@ -6,9 +6,7 @@ import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/helpers/convert_datetime.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:uuid/uuid.dart';
-
-var uuid = Uuid();
+import 'dart:math';
 
 class CreateToDo extends StatefulWidget {
   const CreateToDo({Key? key}) : super(key: key);
@@ -98,7 +96,13 @@ class _CreateToDoState extends State<CreateToDo> {
               InkWell(
                 onTap: () {
                   if (_title != null && _dueDate != null && _title != '') {
-                    TodoModel obj = TodoModel(uuid.v4(), _title as String, _dueDate as DateTime, false);
+                    var rnd = Random();
+                    var next = rnd.nextDouble() * 1000000000;
+                    while (next < 100000000) {
+                      next *= 10;
+                    }
+                    TodoModel obj =
+                        TodoModel(next.toInt(), _title as String, _dueDate as DateTime, false);
                     todosModel.addTodo(obj);
                     showTopSnackBar(
                       context,

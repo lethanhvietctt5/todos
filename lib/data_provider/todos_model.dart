@@ -3,14 +3,18 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todos/data_provider/todo_model.dart';
+import 'package:todos/notification_service.dart';
 
 class TodosModel extends ChangeNotifier {
   final List<TodoModel> _listTodos = [];
   final List<TodoModel> _today = [];
   final List<TodoModel> _upcomming = [];
 
+  NotificationService notificationService = NotificationService();
+
   TodosModel() {
     loadTodos();
+    notificationService.init();
   }
 
   get listTodos => _listTodos;
@@ -23,21 +27,24 @@ class TodosModel extends ChangeNotifier {
     var str = json.encode(_listTodos);
     prefs.setString("todos", str);
     sortList();
+    notificationService.showNotification(todo);
     notifyListeners();
   }
 
-  void removeTodo(String id) {
+  void removeTodo(int id) {
     _listTodos.removeWhere((todo) => todo.id == id);
     sortList();
     notifyListeners();
   }
 
-  void doneTodo(String id) {
-    _listTodos.forEach((todo) {
+  void doneTodo(int id) {
+    for (TodoModel todo in _listTodos) {
       if (todo.id == id) {
         todo.isDone = true;
+        break;
       }
-    });
+    }
+
     sortList();
     notifyListeners();
   }
