@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:todos/data_provider/todo_model.dart';
+import 'package:todos/data_provider/todos_model.dart';
+import 'package:todos/helpers/convert_datetime.dart';
+import 'package:woozy_search/woozy_search.dart';
+
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key? key}) : super(key: key);
+
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  List<TodoModel> results = [];
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TodosModel>(
+      builder: (context, todos, child) {
+        final wozzy = Woozy();
+        for (TodoModel todo in todos.listTodos) {
+          wozzy.addEntry(todo.title, value: todo.id);
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+              backgroundColor: Colors.white,
+              iconTheme: const IconThemeData(
+                color: Colors.black,
+              ),
+              elevation: 0,
+              title: TextFormField(
+                cursorColor: Colors.deepOrange,
+                controller: _controller,
+                onChanged: (value) {
+                  final elements = wozzy.search(value);
+                  List<int> ids = [];
+
+                  for (dynamic e in elements) {
+                    if (e.score > 0.3) {
+                      ids.add(e.value);
+                    }
+                  }
+
+                  List<TodoModel> _tempRes = [];
+                  for (TodoModel todo in todos.listTodos) {
+                    if (ids.contains(todo.id)) {
+                      _tempRes.add(todo);
+                    }
+                  }
+                  setState(() {
+                    results = _tempRes;
+                  });
+                },
+                autofocus: true,
+                style: const TextStyle(color: Colors.black, fontSize: 13),
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.only(bottom: 11, top: 11, right: 15),
+                    hintText: "Search todos..."),
+              )),
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: ListView.builder(
+                itemCount: results.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text(
+                        results[index].title,
+                        style: const TextStyle(fontSize: 15),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Container(
+                        margin: const EdgeInsets.only(top: 7),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 5),
+                              child: SvgPicture.asset(
+                                "asset/svg/ic_clock.svg",
+                                color: Colors.green,
+                              ),
+                            ),
+                            Text(
+                              DateTimeHelper(results[index].dueDate).convertDateTimeToString(),
+                              style: const TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                      leading: Checkbox(
+                        value: results[index].isDone,
+                        onChanged: (newValue) {
+                          todos.removeTodo(results[index].id);
+                        },
+                      ),
+                    ),
+                  );
+                },
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

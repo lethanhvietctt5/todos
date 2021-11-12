@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
           ),
           IconButton(
             icon: const Icon(

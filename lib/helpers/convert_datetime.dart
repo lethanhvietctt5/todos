@@ -1,5 +1,5 @@
 class DateTimeHelper {
-  DateTime _dateTime;
+  final DateTime _dateTime;
 
   DateTimeHelper(this._dateTime);
 
