@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todos_model.dart';
 import 'package:todos/screens/all_page.dart';
 import 'package:todos/screens/home_page.dart';
+import 'package:todos/screens/notification_page.dart';
 import 'package:todos/screens/search_page.dart';
 import 'package:todos/screens/today_page.dart';
 import 'package:todos/screens/upcomming_page.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => const UpcommingPage());
             case '/search':
               return MaterialPageRoute(builder: (_) => const SearchPage());
+            case '/notification':
+              return MaterialPageRoute(builder: (_) => const NotificationPage());
             default:
               return MaterialPageRoute(builder: (_) => const HomePage());
           }

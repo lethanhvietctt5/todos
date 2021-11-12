@@ -54,16 +54,16 @@ class NotificationService {
 
     Duration offset = DateTime.now().timeZoneOffset;
     DateTime dueDate = todo.dueDate;
-    DateTime notifyDate = dueDate.subtract(const Duration(minutes: 5));
+    DateTime notifyDate = dueDate.subtract(const Duration(minutes: 10));
 
-    if (dueDate.difference(DateTime.now()).inMinutes < 5) {
+    if (dueDate.difference(DateTime.now()).inMinutes < 10) {
       await flutterLocalNotificationsPlugin.show(
         todo.id,
         todo.title,
         "Task is going to due. Let complete it !",
         platformChannelSpecifics,
       );
-    } else if (dueDate.difference(DateTime.now()).inMinutes >= 5) {
+    } else if (dueDate.difference(DateTime.now()).inMinutes >= 10) {
       await flutterLocalNotificationsPlugin.zonedSchedule(
           todo.id,
           todo.title,

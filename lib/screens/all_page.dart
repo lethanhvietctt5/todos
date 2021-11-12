@@ -22,7 +22,9 @@ class AllPage extends StatelessWidget {
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -40,7 +42,7 @@ class AllPage extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -83,7 +85,7 @@ class AllPage extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Text(
-                        "You don't have any task to do...",
+                        "You don't have any todos...",
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ),
@@ -98,6 +100,7 @@ class AllPage extends StatelessWidget {
               itemCount: todos.listTodos.length,
               itemBuilder: (context, index) {
                 return Card(
+                  elevation: 8,
                   child: ListTile(
                     title: Text(
                       todos.listTodos[index].title,

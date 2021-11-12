@@ -15,7 +15,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   List<TodoModel> results = [];
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,75 @@ class _SearchPageState extends State<SearchPage> {
         final wozzy = Woozy();
         for (TodoModel todo in todos.listTodos) {
           wozzy.addEntry(todo.title, value: todo.id);
+        }
+
+        if (_controller.value.text.isNotEmpty && results.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                iconTheme: const IconThemeData(
+                  color: Colors.black,
+                ),
+                elevation: 0,
+                title: TextFormField(
+                  cursorColor: Colors.deepOrange,
+                  controller: _controller,
+                  onChanged: (value) {
+                    final elements = wozzy.search(value);
+                    List<int> ids = [];
+
+                    for (dynamic e in elements) {
+                      if (e.score > 0.3) {
+                        ids.add(e.value);
+                      }
+                    }
+
+                    List<TodoModel> _tempRes = [];
+                    for (TodoModel todo in todos.listTodos) {
+                      if (ids.contains(todo.id)) {
+                        _tempRes.add(todo);
+                      }
+                    }
+                    setState(() {
+                      results = _tempRes;
+                    });
+                  },
+                  autofocus: true,
+                  style: const TextStyle(color: Colors.black, fontSize: 13),
+                  decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.only(bottom: 11, top: 11, right: 15),
+                      hintText: "Search todos..."),
+                )),
+            backgroundColor: Colors.white,
+            body: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "asset/svg/ic_nodata.svg",
+                      width: 200,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Text(
+                        "Cannot find any matches for your search term...",
+                        style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
         }
 
         return Scaffold(
@@ -75,6 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                 itemCount: results.length,
                 itemBuilder: (context, index) {
                   return Card(
+                    elevation: 8,
                     child: ListTile(
                       title: Text(
                         results[index].title,
@@ -104,6 +174,9 @@ class _SearchPageState extends State<SearchPage> {
                         value: results[index].isDone,
                         onChanged: (newValue) {
                           todos.removeTodo(results[index].id);
+                          setState(() {
+                            results.removeAt(index);
+                          });
                         },
                       ),
                     ),

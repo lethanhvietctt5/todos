@@ -28,7 +28,9 @@ class _TodayPageState extends State<TodayPage> {
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -46,7 +48,7 @@ class _TodayPageState extends State<TodayPage> {
           ),
         ],
       ),
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -90,7 +92,7 @@ class _TodayPageState extends State<TodayPage> {
                     Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Text(
-                        "You don't have any task to do...",
+                        "Today is empty...",
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                     ),
@@ -105,6 +107,7 @@ class _TodayPageState extends State<TodayPage> {
               itemCount: todayTodos.length,
               itemBuilder: (context, index) {
                 return Card(
+                  elevation: 8,
                   child: ListTile(
                     title: Text(
                       todayTodos[index].title,

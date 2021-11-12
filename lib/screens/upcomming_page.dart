@@ -23,7 +23,9 @@ class UpcommingPage extends StatelessWidget {
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/search');
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -41,7 +43,7 @@ class UpcommingPage extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -84,7 +86,7 @@ class UpcommingPage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: Text(
-                      "You don't have any task to do...",
+                      "Upcomming is empty...",
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                   ),
@@ -99,6 +101,7 @@ class UpcommingPage extends StatelessWidget {
             itemCount: upcommingTodos.length,
             itemBuilder: (context, index) {
               return Card(
+                elevation: 8,
                 child: ListTile(
                   title: Text(
                     upcommingTodos[index].title,

@@ -59,7 +59,9 @@ class _HomePageState extends State<HomePage> {
               Icons.notifications_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/notification');
+            },
           ),
           IconButton(
             icon: const Icon(
