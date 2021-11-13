@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
@@ -21,6 +22,9 @@ class NotificationPage extends StatelessWidget {
         title: const Text(
           'Notifications',
           style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white, // Status bar
         ),
       ),
       backgroundColor: Colors.white,

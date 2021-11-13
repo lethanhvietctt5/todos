@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
@@ -32,16 +33,14 @@ class UpcommingPage extends StatelessWidget {
               Icons.notifications_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/notification');
+            },
           ),
         ],
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.deepOrange, // Status bar
+        ),
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(

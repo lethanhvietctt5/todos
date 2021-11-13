@@ -60,7 +60,7 @@ class _CreateToDoState extends State<CreateToDo> {
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
               contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-              hintText: "Enter title Todo here ..."),
+              hintText: "Enter todo here..."),
         ),
         Container(
           margin: const EdgeInsets.only(right: 15),
@@ -101,8 +101,7 @@ class _CreateToDoState extends State<CreateToDo> {
                     while (next < 100000000) {
                       next *= 10;
                     }
-                    TodoModel obj =
-                        TodoModel(next.toInt(), _title as String, _dueDate as DateTime, false);
+                    TodoModel obj = TodoModel(next.toInt(), _title as String, _dueDate as DateTime, false);
                     todosModel.addTodo(obj);
                     showTopSnackBar(
                       context,
@@ -112,11 +111,18 @@ class _CreateToDoState extends State<CreateToDo> {
                       ),
                     );
                     Navigator.pop(context);
-                  } else {
+                  } else if (_title == null || _title == '') {
                     showTopSnackBar(
                         context,
                         const CustomSnackBar.error(
-                          message: "Ohhh...! Please fill all field",
+                          message: "Ohhh...! Please enter todo.",
+                          backgroundColor: Colors.orange,
+                        ));
+                  } else if (_dueDate == null) {
+                    showTopSnackBar(
+                        context,
+                        const CustomSnackBar.error(
+                          message: "Ohhh...! Please select duetime for todo.",
                           backgroundColor: Colors.orange,
                         ));
                   }

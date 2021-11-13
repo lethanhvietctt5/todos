@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todos_model.dart';
@@ -63,14 +64,10 @@ class _HomePageState extends State<HomePage> {
               Navigator.pushNamed(context, '/notification');
             },
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          ),
         ],
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.deepOrange, // Status bar
+        ),
       ),
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
