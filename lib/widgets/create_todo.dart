@@ -9,7 +9,9 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'dart:math';
 
 class CreateToDo extends StatefulWidget {
-  const CreateToDo({Key? key}) : super(key: key);
+  final String? title;
+  final DateTime? dueDate;
+  const CreateToDo({Key? key, this.title, this.dueDate}) : super(key: key);
 
   @override
   _CreateToDoState createState() => _CreateToDoState();

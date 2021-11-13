@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todos_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
 import 'package:todos/widgets/create_todo.dart';
+import 'package:todos/widgets/list_todos.dart';
 
 class AllPage extends StatelessWidget {
   const AllPage({Key? key}) : super(key: key);
@@ -69,79 +69,38 @@ class AllPage extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       body: SingleChildScrollView(
-        child: Consumer<TodosModel>(builder: (context, todos, child) {
-          if (todos.listTodos.length == 0) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "asset/svg/ic_empty.svg",
-                      width: 200,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: Text(
-                        "You don't have any todos...",
-                        style: TextStyle(color: Colors.grey[700]),
+        child: Consumer<TodosModel>(
+          builder: (context, todos, child) {
+            void onChange(bool? value, int index) {
+              todos.removeTodo(todos.listTodos[index].id);
+            }
+
+            if (todos.listTodos.length == 0) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "asset/svg/ic_empty.svg",
+                        width: 200,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: ListView.builder(
-              itemCount: todos.listTodos.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 8,
-                  child: ListTile(
-                    title: Text(
-                      todos.listTodos[index].title,
-                      style: const TextStyle(
-                        fontSize: 15,
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          "You don't have any todos...",
+                          style: TextStyle(color: Colors.grey[700]),
+                        ),
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Container(
-                      margin: const EdgeInsets.only(top: 7),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 5),
-                            child: SvgPicture.asset(
-                              "asset/svg/ic_clock.svg",
-                              color: Colors.green,
-                            ),
-                          ),
-                          Text(
-                            DateTimeHelper(todos.listTodos[index].dueDate).convertDateTimeToString(),
-                            style: const TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ),
-                    leading: Checkbox(
-                      value: todos.listTodos[index].isDone,
-                      onChanged: (newValue) {
-                        todos.doneTodo(todos.listTodos[index].id);
-                        todos.removeTodo(todos.listTodos[index].id);
-                      },
-                    ),
+                    ],
                   ),
-                );
-              },
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-            ),
-          );
-        }),
+                ),
+              );
+            }
+            return ListTodo(list: todos.listTodos, callback: onChange);
+          },
+        ),
       ),
     );
   }

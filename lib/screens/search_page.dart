@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
 import 'package:todos/data_provider/todos_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
+import 'package:todos/widgets/list_todos.dart';
 import 'package:woozy_search/woozy_search.dart';
 
 class SearchPage extends StatefulWidget {
@@ -25,6 +25,13 @@ class _SearchPageState extends State<SearchPage> {
         final wozzy = Woozy();
         for (TodoModel todo in todos.listTodos) {
           wozzy.addEntry(todo.title, value: todo.id);
+        }
+
+        void onChanged(newValue, index) {
+          todos.removeTodo(results[index].id);
+          setState(() {
+            results.removeAt(index);
+          });
         }
 
         if (_controller.value.text.isNotEmpty && results.isEmpty) {
@@ -147,54 +154,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: ListView.builder(
-                itemCount: results.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 8,
-                    child: ListTile(
-                      title: Text(
-                        results[index].title,
-                        style: const TextStyle(fontSize: 15),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Container(
-                        margin: const EdgeInsets.only(top: 7),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              child: SvgPicture.asset(
-                                "asset/svg/ic_clock.svg",
-                                color: Colors.green,
-                              ),
-                            ),
-                            Text(
-                              DateTimeHelper(results[index].dueDate).convertDateTimeToString(),
-                              style: const TextStyle(color: Colors.grey, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                      leading: Checkbox(
-                        value: results[index].isDone,
-                        onChanged: (newValue) {
-                          todos.removeTodo(results[index].id);
-                          setState(() {
-                            results.removeAt(index);
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-              ),
-            ),
+            child: ListTodo(list: results, callback: onChanged),
           ),
         );
       },
