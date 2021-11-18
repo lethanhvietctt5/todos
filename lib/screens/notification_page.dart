@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
 import 'package:todos/data_provider/todos_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -22,9 +22,6 @@ class NotificationPage extends StatelessWidget {
         title: const Text(
           'Notifications',
           style: TextStyle(color: Colors.black, fontSize: 18),
-        ),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.white, // Status bar
         ),
       ),
       backgroundColor: Colors.white,
@@ -91,7 +88,7 @@ class NotificationPage extends StatelessWidget {
                         subtitle: Container(
                           margin: const EdgeInsets.only(top: 7),
                           child: Text(
-                            DateTimeHelper(notifications[index].dueDate).convertDateTimeToString(),
+                            DateFormat.yMEd().add_jm().format(notifications[index].dueDate),
                             style: const TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ),

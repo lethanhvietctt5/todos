@@ -122,7 +122,7 @@ class _SearchPageState extends State<SearchPage> {
                 List<int> ids = [];
 
                 for (dynamic e in elements) {
-                  if (e.score > 0.3) {
+                  if (e.score > 0.2) {
                     ids.add(e.value);
                   }
                 }
@@ -147,9 +147,6 @@ class _SearchPageState extends State<SearchPage> {
                   disabledBorder: InputBorder.none,
                   contentPadding: EdgeInsets.only(bottom: 11, top: 11, right: 15),
                   hintText: "Search todos..."),
-            ),
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: Colors.white, // Status bar
             ),
           ),
           backgroundColor: Colors.white,

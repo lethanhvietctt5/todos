@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:todos/data_provider/todo_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
 
 class ListTodo extends StatelessWidget {
   final List<TodoModel>? list;
@@ -36,7 +36,7 @@ class ListTodo extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateTimeHelper(list![index].dueDate).convertDateTimeToString(),
+                      DateFormat.yMEd().add_jm().format(list![index].dueDate),
                       style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],

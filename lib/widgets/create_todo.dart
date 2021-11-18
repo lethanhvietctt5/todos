@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todos/data_provider/todo_model.dart';
 import 'package:todos/data_provider/todos_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'dart:math';
@@ -88,7 +88,7 @@ class _CreateToDoState extends State<CreateToDo> {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        _dueDate != null ? DateTimeHelper(_dueDate as DateTime).convertDateTimeToString() : 'Set time',
+                        _dueDate != null ? DateFormat.yMEd().add_jm().format(_dueDate as DateTime) : 'Set time',
                         style: const TextStyle(color: Colors.deepOrange, fontSize: 12),
                       ),
                     ],

@@ -1,8 +1,8 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart';
 import 'package:todos/data_provider/todo_model.dart';
-import 'package:todos/helpers/convert_datetime.dart';
 
 class NotificationService {
   NotificationService._internal();
@@ -67,7 +67,7 @@ class NotificationService {
       await flutterLocalNotificationsPlugin.zonedSchedule(
           todo.id,
           todo.title,
-          "Task is due at ${DateTimeHelper(dueDate).convertTimeToString()}",
+          "Task is due at ${DateFormat.yMEd().add_jm().format(dueDate)}",
           TZDateTime.local(notifyDate.year, notifyDate.month, notifyDate.day, notifyDate.hour, notifyDate.minute)
               .subtract(offset),
           platformChannelSpecifics,
