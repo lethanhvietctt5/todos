@@ -19,31 +19,9 @@ class _HomePageState extends State<HomePage> {
     final todosModel = Provider.of<TodosModel>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(10),
-                ),
-              ),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              builder: (BuildContext builder) {
-                return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.only(top: 15),
-                    height: 150,
-                    child: const CreateToDo(),
-                  ),
-                );
-              },
-              isScrollControlled: true,
-            );
-          },
-          icon: const Icon(Icons.add),
+        title: const Text(
+          'Welcome',
+          style: TextStyle(fontSize: 21),
         ),
         actions: [
           IconButton(
@@ -188,6 +166,32 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
+            ),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            builder: (BuildContext builder) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.only(top: 15),
+                  height: 150,
+                  child: const CreateToDo(),
+                ),
+              );
+            },
+            isScrollControlled: true,
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
